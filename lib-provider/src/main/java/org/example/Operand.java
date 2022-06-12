@@ -1,5 +1,6 @@
 package org.example;
 
+import java.net.HttpCookie;
 import lombok.Value;
 
 @Value(staticConstructor = "of")
@@ -8,5 +9,9 @@ public class Operand {
 
     public Operand plus(Operand target) {
         return Operand.of(value + target.getValue());
+    }
+
+    public Operand minus(Operand target) {
+        return Operand.of(value - target.getValue());
     }
 }

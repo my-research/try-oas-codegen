@@ -1,14 +1,38 @@
 plugins {
     id 'java'
+    id 'io.freefair.lombok' version '6.0.0-m2'
+    id 'maven-publish'
 }
 
+archivesBaseName = 'calculator' // jar name
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '0.1.0'
+
+def AWS_ACCESS_KEY = System.getenv("PROVIDER_S3_ACCESS_KEY") ? System.getenv("PROVIDER_S3_ACCESS_KEY") : "empty"
+def AWS_SECRET_KEY = System.getenv("PROVIDER_S3_SECRET_KEY") ? System.getenv("PROVIDER_S3_SECRET_KEY") : "empty"
+
+publishing {
+    publications {
+        "calculator"(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'wonit'
+            url = 's3://repo.wonit.com/snapshot'
+            credentials(AwsCredentials) {
+                accessKey = AWS_ACCESS_KEY
+                secretKey = AWS_SECRET_KEY
+            }
+        }
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.projectlombok:lombok:1.18.24'
 }

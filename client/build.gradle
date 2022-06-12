@@ -5,13 +5,24 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+def AWS_ACCESS_KEY = System.getenv("CLIENT_S3_ACCESS_KEY") ? System.getenv("CLIENT_S3_ACCESS_KEY") : "empty"
+def AWS_SECRET_KEY = System.getenv("CLIENT_S3_SECRET_KEY") ? System.getenv("CLIENT_S3_SECRET_KEY") : "empty"
+
 repositories {
     mavenCentral()
+
+    maven {
+        name = 'wonit-calculator'
+        url = 's3://repo.wonit.com/snapshot'
+        credentials(AwsCredentials) {
+            accessKey = AWS_ACCESS_KEY
+            secretKey = AWS_SECRET_KEY
+        }
+    }
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.example:lib-provider:0.1.0'
 }
 
 test {
