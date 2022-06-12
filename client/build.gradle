@@ -15,14 +15,14 @@ repositories {
         name = 'wonit-calculator'
         url = 's3://repo.wonit.com/snapshot'
         credentials(AwsCredentials) {
-            accessKey = AWS_ACCESS_KEY
-            secretKey = AWS_SECRET_KEY
+            accessKey = "AWS_ACCESS_KEY"
+            secretKey = "AWS_SECRET_KEY"
         }
     }
 }
 
 dependencies {
-    implementation 'org.example:lib-provider:0.1.0'
+    implementation 'org.example:lib-provider:0.1.2'
 }
 
 test {

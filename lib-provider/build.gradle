@@ -1,12 +1,12 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'io.freefair.lombok' version '6.0.0-m2'
     id 'maven-publish'
 }
 
 archivesBaseName = 'calculator' // jar name
 group 'org.example'
-version '0.1.0'
+version '0.1.2'
 
 def AWS_ACCESS_KEY = System.getenv("PROVIDER_S3_ACCESS_KEY") ? System.getenv("PROVIDER_S3_ACCESS_KEY") : "empty"
 def AWS_SECRET_KEY = System.getenv("PROVIDER_S3_SECRET_KEY") ? System.getenv("PROVIDER_S3_SECRET_KEY") : "empty"

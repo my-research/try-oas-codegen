@@ -7,8 +7,14 @@ public class Main {
         Operand left = Operand.of(100);
         Operand right = Operand.of(200);
 
-        Result result = calculator.calculate(left, right);
+        Result result = calculator.plus(left, right);
 
         System.out.println(result);
+
+        Operand newLeft = result.toOperand();
+
+        Result newResult = calculator.minus(newLeft, right);
+
+        System.out.println(newResult);
     }
 }
