@@ -58,6 +58,10 @@ openApiGenerate {
   configFile.set("$projectDir/src/api-specs/specs/config.json")
 }
 
+tasks.named("openApiGenerate") {
+  finalizedBy("openApiGenerateExternal")
+}
+
 /**
  * external codegen task 정의
  *
