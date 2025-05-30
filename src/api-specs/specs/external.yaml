@@ -1,29 +1,25 @@
 openapi: 3.0.3
 info:
-  title: ixi-O Proxy Service
-  description: ixi-O Proxy를 위한 서비스
+  title: my sample
+  description: my sample external
   version: 0.0.1
 
 servers:
   - url: http://localhost:8080
     description: local
-  - url: https://proxy-orchestratord.aicall-lgudev.com
-    description: dev
-  - url: https://proxy-orchestrators.aicall-lgudev.com
-    description: beta
 
 paths:
-  /external/greeting:
+  /external/sample:
     get:
-      summary: 외부용 인사 API
+      summary: 외부용 샘플 API
       description: OAuth2 인증이 필요한 외부용 GET API
       tags:
         - External
       security:
-        - oauth2: []
+        - oauth2: [ ]
       responses:
         '200':
-          description: 인사 메시지 반환
+          description: 성공 응답
           content:
             application/json:
               schema:
@@ -31,7 +27,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Hello, OpenAPI!
+                    example: hello world
 
 components:
   securitySchemes:
@@ -39,6 +35,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-    basicAuth:
-      type: http
-      scheme: basic
