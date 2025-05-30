@@ -1,0 +1,22 @@
+{
+  "library": "spring-boot",
+  "documentationProvider": "none",
+  "interfaceOnly" : true,
+  "basePackage" : "kr.co.uplus.ixiosearch",
+  "modelPackage": "kr.co.uplus.ixiosearch.api.model",
+  "apiPackage": "kr.co.uplus.ixiosearch.api.controller",
+  "useTags" : true,
+  "skipDefaultInterface" : true,
+  "dateLibrary": "java11",
+  "useBeanValidation" : true,
+  "serializableModel" : true,
+  "implicitHeaders" : false,
+  "swaggerDocketConfig": false,
+  "hideGenerationTimestamp": false,
+
+  "useSpringfox": false,
+  "reactive": false,
+  "openApiNullable" : false,
+  "enumPropertyNaming": "original",
+  "useSpringBoot3": true
+}
