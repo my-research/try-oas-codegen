@@ -1,25 +1,28 @@
-### 🔓 1. public 경로 테스트 (permitAll)
+### public 1
 GET http://localhost:8080/index.html
 Accept: text/html
-
-###
+### public 2
 GET http://localhost:8080/swagger/index.html
 Accept: text/html
 
 
-### 🔐 2. external 경로 테스트 (OAuth2 Mocked Token)
+### oauth
 GET http://localhost:8080/external/sample
 Authorization: Bearer mock-token
 Accept: application/json
-
-###
-
-### 🔐 3. internal 경로 테스트 (Basic Auth)
-GET http://localhost:8080/internal/sample
-Authorization: Basic user:password
+### oauth-fail
+GET http://localhost:8080/external/any-foo-request
 Accept: application/json
 
 
-### ✅ internal - with Basic Auth
-GET http://localhost:8080/internal/test
-Authorization: Basic dXNlcjpwYXNzd29yZAo=
+### basic-auth
+GET http://localhost:8080/internal/sample
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+### basic-auth-fail
+GET http://localhost:8080/internal/any-foo-request
+Authorization: Basic user:password
+Accept: application/json
+
+### others
+GET http://localhost:8080/any
+Accept: application/json
