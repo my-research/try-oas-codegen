@@ -39,27 +39,28 @@ tasks.withType<Test> {
   useJUnitPlatform()
 }
 
+
 val buildDir = layout.buildDirectory.get().asFile
 val apiSpecsRoot = "$projectDir/src/api-specs"
 
-// internal codegen
-tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerateInternal") {
-  generatorName.set("kotlin-spring")
-  inputSpec.set("$apiSpecsRoot/specs/internal.yaml")
-  outputDir.set("${buildDir}/generated/internal")
+openApiGenerate {
+  generatorName.set("kotlin-spring") //kotlin-spring 기반 코드 생성
+  inputSpec.set("$apiSpecsRoot/specs/internal.yaml") //OpenApi 3.0문서의 위치
+  outputDir.set("$buildDir/generated") //문서를 기반으로 생성될 코드의 위치
   configFile.set("$apiSpecsRoot/specs/config.json")
 }
 
 // external codegen
 tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiGenerateExternal") {
+  dependsOn("openApiGenerate")
   generatorName.set("kotlin-spring")
   inputSpec.set("$apiSpecsRoot/specs/external.yaml")
-  outputDir.set("${buildDir}/generated/internal")
+  outputDir.set("${buildDir}/generated")
   configFile.set("$apiSpecsRoot/specs/config.json")
 }
 
 tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("openApiJsonGeneratorInternal") {
-  dependsOn("openApiGenerateInternal")
+  dependsOn("openApiGenerate")
   generatorName.set("openapi")
   inputSpec.set("$apiSpecsRoot/specs/internal.yaml")
   outputDir.set("$buildDir/resources/main/docs/openapi/internal")
@@ -87,7 +88,7 @@ tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("ope
 sourceSets {
   main {
     java.srcDirs(
-      "$buildDir/generated/internal/src/main/kotlin",
+      "$buildDir/generated/src/main/kotlin",
       "$projectDir/src/api-specs/specs"
     )
     resources.srcDir("${openApiGenerate.outputDir.get()}/src/main/resources")
@@ -95,9 +96,9 @@ sourceSets {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  dependsOn("openApiGenerateInternal", "openApiGenerateExternal", "openApiJsonGeneratorInternal", "openApiJsonGeneratorExternal")
+  dependsOn("openApiGenerate", "openApiGenerateExternal", "openApiJsonGeneratorInternal", "openApiJsonGeneratorExternal")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask> {
-  dependsOn("openApiGenerateInternal", "openApiGenerateExternal", "openApiJsonGeneratorInternal", "openApiJsonGeneratorExternal")
+  dependsOn("openApiGenerate", "openApiGenerateExternal", "openApiJsonGeneratorInternal", "openApiJsonGeneratorExternal")
 }
