@@ -1,0 +1,8 @@
+### curl -X 'GET'
+GET http://localhost:8080/external/sample
+accept: application/json
+
+
+### curl -X 'GET'
+GET http://localhost:8080/internal/sample
+accept: application/json
