@@ -1,9 +1,7 @@
 package io.github.dhslrl321.oassample
 
-import kr.co.uplus.ixiosearch.api.controller.ExternalApi
-import kr.co.uplus.ixiosearch.api.controller.InternalApi
-import kr.co.uplus.ixiosearch.api.model.ExternalSampleGet200Response
-import kr.co.uplus.ixiosearch.api.model.InternalSampleGet200Response
+import io.github.dhslrl321.api.controller.*
+import io.github.dhslrl321.api.model.*
 import org.springframework.http.ResponseEntity
 
 class InternalController: InternalApi {
